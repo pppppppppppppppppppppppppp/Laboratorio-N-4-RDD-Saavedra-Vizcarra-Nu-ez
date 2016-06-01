@@ -1,0 +1,183 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\begin{document}
+	\begin{titlepage}
+		\begin{center}
+			\includegraphics[width=10cm]{C:/Users/dimitri/Desktop/UDP/IMAGENES/logo_udp.PNG}\\
+			\Large{\bfseries Facultad de Ingeniería\\
+				Escuela de Informática y Telecomunicaciones}
+			\line(1,0){400}
+			\vspace{3cm}
+			\huge{\bfseries Comprobación del funcionamiento del algoritmo STP e implementación de VLAN Laboratorio N°4, Redes de Datos}	
+		\end{center}
+		\vspace{2cm}
+			\textbf{Profesor:}\hspace{3mm} Jaime \'{A}lvarez.\\
+			\textbf{Ayudante:} Alexis Inzunza.\\		
+			\textbf{Alumnos:} \hspace{2mm}Felipe Saavedra.\\
+			     \hspace*{23.5mm}Felipe Vizcarra.\\
+			     \hspace*{23.5mm}Javier Nuñez.
+	\begin{center}
+	
+		\textbf{1 de Junio del 2016}
+			\end{center}
+	\end{titlepage}
+	\newpage
+	\Huge{\bfseries Indice:}
+		\\1.Actividades.......................................2
+		\\ \hspace*{0.5cm}1.1.Topologia base con bucles............2
+		\\ \hspace*{1cm}1.1.1.Descripción de actividad.........2
+		\\ \hspace*{1cm}1.1.2.Preguntas................................3
+		\\ \hspace*{0.5cm}1.2.Configuración de STP..................3
+		\\ \hspace*{1cm}1.2.1.Descripción de actividad.........4 
+		\\ \hspace*{1cm}1.2.2.Preguntas................................5
+		\\ \hspace*{0.5cm}1.3.Priorización en STP.....................6
+		\\ \hspace*{1cm}1.3.1.Descripción de actividad.........7
+		\\ \hspace*{0.5cm}1.4.Configuración VLAN...................8
+		\\ \hspace*{1cm}1.4.1.Descripción de actividad.........8 
+		\\ \hspace*{1cm}1.4.2.Preguntas...............................10 
+		\\2.Conclusión........................................12
+		\\3.Bibliografía.......................................13
+	\newpage
+	\normalsize
+	\section{Actividades:}
+	\subsection{TOPOLOGÍA BASE CON BUCLES.}
+	
+	En esta actividad nos piden desactivar el protocolo  spanning-tree de una topología utilizando el comando:\\
+	\\
+	\emph{Switch(config)\# no spanning-tree vlan 1}\\
+	\\
+	Logrando quedar la topología con tres tipos:
+	\begin{enumerate}
+		\item Tormenta de frames\\
+		\item Inestabilidad \\
+		\item Duplicidad de datos\\
+	\end{enumerate}
+	La siguiente imagen muestra la topología sin el protocolo spanning-tree seguida de la consola:\\
+	\begin{center}
+		\includegraphics[width=10cm]{Javier/Actividad_1.png}
+		\\
+		\includegraphics[width=10cm]{Javier/actividad1p}
+		\\
+	\end{center}
+	
+
+	
+	\subsubsection{Preguntas:}
+	\begin{enumerate}
+		\item ¿Qué camino realizara un paquete que para llegar desde el switch 0 hasta el switch2?\\
+		\\
+		El camino que recorre desde el Switch 0 hasta el Switch 2 serían dos ya que estos están sin spanning-tree, el cual sería el camino entre el Sw0 hasta el Sw2 y el camino desde el Sw0 hasta el Sw1 y desde el Sw1 hasta el Sw2.
+		\item ¿Qué camino realizara un paquete que para llegar desde el switch 2 hasta el switch1?\\
+		\\
+		El camino que recorre desde el Switch 2 hasta el Switch 1 serían dos ya que estos están sin spanning-tree, el cual sería el camino entre el Sw2 hasta el Sw1 y el camino desde el Sw2 hasta el Sw0 y desde el Sw0 hasta el Sw1.
+	\end{enumerate}
+	\subsection{CONFIGURACIÓN DE STP}
+	En esta actividad tuvimos configurar el Switch 1 como primario y cualquiera de los otros dos a secundario con los siguientes comandos:\\
+	\begin{center}
+	\includegraphics[width=10cm]{Javier/comandosactividad2}
+		\end{center}
+		Al hacer las configuraciones se vio un cambio en el spanning-tree de la topología, el cual vio un cambio en la línea que se ve bloqueada para evitar un bucle.\\
+		\begin{center}
+			\includegraphics[width=10cm]{Javier/Sw1}
+			\includegraphics[width=10cm]{Javier/Sw0}\\
+		\end{center} 
+		De forma que el resultado que nos dio fue el esperado.\\
+		\begin{center}
+	\includegraphics[width=10cm]{Javier/actividad_2}\\
+	\subsubsection{Preguntas:}
+	\begin{enumerate}
+		\item ¿Qué camino realizara un paquete que para llegar desde el switch 2 hasta el switch0?\vspace{0.3cm}
+		En nuestro caso el camino que tiene que recorrer el paquete desde Sw2 hasta el Sw0 seria desde el camino desde el Sw2 hasta el Sw1 y desde Sw1 hasta el Sw0.
+		\item ¿Qué camino realizara un paquete que para llegar desde el switch 1 hasta el switch0?\vspace{0.3cm}
+	
+		En nuestro caso el paquete solo tiene que tomar el camino más corto que sería desde el Sw1 hasta el Sw0.
+	\end{enumerate}
+\end{center}
+	\subsection{PRIORIZACIÓN EN STP}
+	Para la actividad 3 se nos dio el caso de poder cambiar la prioridad de los Switch, este valor es bastante importante al momento de elegir cual será nuestro Root-bridge.\\
+	En este caso nosotros cambiaremos el valor del Switch 1 a un valor mayor que el resto de los Switch esperando un cambio en el root bridge y al Switch 0 y 2  se les colocara un valor menor que el Switch 1 (esperando que la actividad no influya en la actividad 3 hicimos una nueva topología).\\
+	\begin{center}
+		\includegraphics[width=10cm]{Javier/actividad_3}
+	\end{center}
+	Al efectuar los siguientes comandos para cambiar el número de prioridad veremos los siguientes cambios:
+	\begin{center}
+		\includegraphics[width=10cm]{Javier/comandosact3}\\
+		\includegraphics[width=10cm]{Javier/aumentodeprioridad}
+	\end{center}
+	Luego de cambiar las prioridades de todos los Switch, se pudo ver el cambio de root bridge en la topología como lo mostraremos a continuación:\\
+	\begin{center}
+		\includegraphics[width=10cm]{Javier/aumentodeprioridads}
+	\end{center}
+	
+	\subsection{CONFIGURACIÓN VLAN}
+		En la actividad 4 de nuestro laboratorio se nos pidió crear una topología de red como la ya vista en el pdf de laboratorio. Esta topología consistía en 5 switches y 8 pc conectados por 4 VLANs distintas, de esta forma nos dieron una tabla en la cual nos especificaban a que VLAN pertenecía cada uno de los computadores ya mencionados.\\
+		Anteriormente en las actividades ya realizadas nos enseñaron a como conectar switches entre si y cómo funcionaba el protocolo STP(evitar loops) y así lograr conectar computadores que se encontraban conectados a distintos switchs.\\
+		En este caso era algo mas complejo por que habia que interconectar todos los switchs y poner cada equipo en su respectiva VLAN al inicio cuando armamos la topología todos los pcs y switchs estaban configurados por defecto (pcs en VLAN 1 y los switchs con STP activado). Esto debía ser cambiado para lograr que cada pc estuviera en su red correspondiente y así se pudiera enviar paquetes solo a los equipos que pertenecían a su red.\\
+		El primer paso para esto fue configurar todos los switch con la VLAN a la que se conectaría el pc respectivo y luego configurar la interfaz (puerto del switch) de acuerdo a si el cable que está conectado a esta va a un pc o va directamente a otro switch Para inicializar una VLAN en el switch se debe usar el comando :
+		switch->enable
+		switch\# vlan database
+		switch\# vlan ?numero de vlan?
+		De esta forma la VLAN correspondiente al número quedara activada en el switch ,solo quedaría entrar a la configuración del pc y asignarlo a la VLAN ya creada. De la misma forma se puede utilizar el comando del mode access que permite que el pc se conecte únicamente a ese puerto con la red asignada. Esto se hace con el comando:\\
+		\\
+		\emph{
+			switch-$>$enable\\
+			switch\#config t\\
+			switch(config)\#int ``puerto de switch'' \\
+			switch(config-if) \#sw mode access\\
+			switch(config-if) \#sw mode access vlan ?numero?
+		}
+		\begin{center}
+			\includegraphics[width=10cm]{PIPE/imagenes/IMG_0571}
+		\end{center}
+		
+		El otro caso posible en la topología es que nuestro switch se conecte a otro switch que posee pc de otras VLAN conectados a este. En este caso debemos utilizar el puerto trunk .Este puerto logra enroutear los paquetes, dependiendo de la VLAN, a la que se desea llegar, si no fuera por este puerto no se podrían comunicar 2 pc de la misma VLAN conectados en distinto switch.
+		El comando para activar el puerto trunk es:\\
+		\\
+		\emph{
+			switch-$>$enable\\
+			switch\#config t\\
+			switch(config)\#int ``puerto del switch''\\
+			switch(config-if)\#sw mode trunk} \\
+		\begin{center}
+			
+		
+		\includegraphics[width=10cm]{PIPE/imagenes/IMG_0572}
+	\end{center}
+		
+		Luego de configurar todos puertos en sus modos respectivos se debe configurar ip en cada uno de los pc para que se pueda conectar con los demás equipos.
+		
+	\subsubsection{Preguntas:}
+	\begin{enumerate}
+	\item ¿Cuál es la diferencia del modo Access y el modo Trunk en un switch?\\
+	\\
+	La diferencia entre el modo Access y el modo Trunk en un switch consiste en que ambos tienen funciones distintas. Al estar en una VLAN los puertos del switch pueden ser usados de 2 formas(o tipos de puerto) estos son el puerto Access y el puerto trunk ya mencionados. El puerto Access sirve para que el puerto en cuestión solo sirva para una VLAN estática asignada a este. En cambio el puerto trunk puede pertenecer a muchas VLANS, pero por defecto pertenece a todas pero puede ser configurable.
+	\item ¿Qué ocurre si conecto una puerta en modo Trunk a un PC?\\
+	\\
+	Si se conecta un pc en un puerto trunk significaría que este pc podría conectarse a todas las VLAN disponibles en el switch al que es conectado en puerto trunk.
+	\item ¿Qué ocurre si conecto dos switches, uno en modo access y otro en modo trunk?\\
+	\\
+	Lo que pasaría es que el switch en modo Access estaría más limitado que el que está en modo trunk, ya que en el modo Access no le permite interconectar VLAN en una red más amplia, por el contrario con lo que ocurre en el switch en modo trunk.
+	\item ¿Qué camino realizara un paquete que para llegar desde el switch 1 hasta el switch 0?\\
+	\\
+	El paquete enviado realizaría un camino directo por el puerto trunk del switch 0 al switch 1, pero este al ver que el paquete enviado no puede ser enviado a ningún equipo conectado por poseer VLAN'S distintas, por ende lo descarta.
+	\end{enumerate}
+	\newpage
+	\section{Conclusión:}
+En el laboratorio pudimos experimentar con los distintos protocolos que se pueden implementar en un switch para una red LAN Ethernet utilizando el software CISCO Packet Tracer.Este programa nos permite diseñar una topología de red de una forma práctica y sencilla pudiendo configurar hasta el más mínimo detalle de cada pc que se interconecta en la red ya creada.\\
+\\
+En nuestra experiencia para este laboratorio se nos pidió activar y desactivar el protocolo STP que viene activado por defecto en todos los switch puestos en nuestra topología de red e interconectar pc?s y switchs.\\
+\\
+Para finalizar tuvimos que configurar una red LAN incluyendo 4 VLAN en nuestra topología y poder enviar paquetes entre PC conectados a distintos switches y pero que a pesar de estar de esto se consideran que están conectados a la misma red LAN.\\
+\\
+De todo estas actividades, como grupo de trabajo podemos concluir que utilizar una VLAN en una forma muy práctica de conectar todo un sistema de comunicaciones avanzado, ya que desde cualquier lugar uno puede conectarse a la red que le es conveniente para su objetivo y así poder dividir una sistema amplio y complejos en sub redes LAN independientes para poder reducir costos y aumentar la eficiencia de nuestra red.
+\newpage
+	\section{Bibliografía}
+	
+	Stallings, W. (2004).\textsl{ Comunicaciones y Redes de Computadores.}\\ Pearson-Prentice Hall. 7ma Edición.
+	
+	
+\end{document}
